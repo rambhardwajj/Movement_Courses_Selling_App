@@ -22,7 +22,9 @@ function Courses(){
 		<div>
 			<div style={{ backgroundColor: "grey"}}>
 				<div style={{ display: "flex",  justifyContent: "center", alignItems: "center"}}>
-				   	<Typography padding={5} color={'black'} fontFamily={'Georgia'} variant="h4" > Welcome to Courses</Typography>
+				   	<Typography   padding={5} color={'black'}  variant="h4" style={{
+						fontFamily: "Oswald, sans-serif;"
+					}} > Welcome to Courses</Typography>
 				</div>
 				<div style={{ padding: 10,  display : "flex",  flexWrap : "wrap" , justifyContent: "center"} }>
 					{courses.map( course => {

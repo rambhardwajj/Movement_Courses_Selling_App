@@ -54,39 +54,23 @@ function AddCourse(){
 						variant="outlined" />
 					<br /> <br />
 
-					<Button 
-						size='large' 
-						variant="contained"
-
-						onClick={()=>{
-							function callback2(data){
-								alert("course Added");
-								console.log(data);
-
-							}
-							function callback1(res){
-								res.json().then(callback2)
-							}
-							fetch( "http://localhost:3000/admin/courses", {
-								method : "POST", 
-								body : JSON.stringify({
-									title : title ,
-									description : description,
-									imageLink : imageLink,
-									published : true
-								}),
+					<Button  size='large'  variant="contained"
+						onClick={ async ()=>{
+							const res = await axios.post( "http://localhost:3000/admin/courses", {
+								title : title ,
+								description : description,
+								imageLink : imageLink,
+								published : true
+							},{
 								headers : {
 									"Content-type": "application/json",
 									"Authorization": "Bearer "+ localStorage.getItem("token")
 								}
-							}).then(callback1)
-							
+							});
+							alert("course added");							
 						}}> Add Course</Button>
 				</Card>
 			</div>
-
-
-
 		</div>
 	)
 }

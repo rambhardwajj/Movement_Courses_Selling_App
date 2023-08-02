@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import { useState } from 'react';
 import { Typography } from '@mui/material';
 import moveImgg from './moveee.jpeg'
-
+import axios from 'axios';
 function SignIn(){
 	const [email , setEmail] = useState("");
 	const [password, setPassword] =  useState("");
@@ -47,23 +47,19 @@ function SignIn(){
 				<br />
 
 				<Button size='large' variant="contained"
-					onClick={()=>{
-						function callback2(data){
-							localStorage.setItem("token", data.token);
-							window.location= '/courses'
-							console.log(data);
-						}
-						function callback1(res){
-							res.json().then(callback2);
-						}
-						fetch( "http://localhost:3000/admin/login", {
-							method : "POST", 
-							headers: {
-								"Content-Type": "application/json",
-								username: email,
-								password: password,
-							}
-						}).then(callback1)
+					 onClick={async () => {
+                        const res = await axios.post("http://localhost:3000/admin/login", {
+                            username: email,
+                            password: password
+                        }, {
+                            headers: {
+                                "Content-type": "application/json"
+                            }
+                        });
+                        const data = res.data;
+                        localStorage.setItem("token", data.token);
+                        window.location = "/courses"
+
 					}}> Sign In</Button>
 			</Card>
 		</div>

@@ -6,8 +6,7 @@ import { Typography } from '@mui/material';
 import moveImgg from './movee.jpeg'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { grey } from '@mui/material/colors';
-
+import axios from 'axios';
 
 function SignUp(){
 	const [email , setEmail] =  useState("");
@@ -80,25 +79,17 @@ function SignUp(){
 					<br />
 
 					<Button size='large' variant="contained" color='success'
-						onClick={()=>{
-							function callback2(data){
-								localStorage.setItem("token", data.token);
-								window.location = "/courses"
-								console.log(data);
-							}
-							function callback1(res){
-								res.json().then(callback2);
-							}
-							fetch( "http://localhost:3000/admin/signup", {
-								method : "POST", 
-								body : JSON.stringify({
-									username : email ,
-									password : password
-								}),
-								headers : {
-									"Content-type": "application/json"
-								}
-							}).then(callback1)
+						onClick={ async ()=>{
+							const res = await axios.post( "http://localhost:3000/admin/signup", {
+								username : email ,
+								password : password
+							
+							})
+							const data = res.data;
+							localStorage.setItem("token", data.token);
+							window.location = "/courses"
+							console.log(data);
+
 						}}> Sign Up</Button>
 				</Card>
 			</div>

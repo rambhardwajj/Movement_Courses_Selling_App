@@ -3,32 +3,32 @@ import Button  from "@mui/material/Button";
 import { blueGrey, lightGreen } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 function Appbar(){
 	// const navigate = useNavigate();
 	const [userEmail , setUserEmail]  = useState("");
 
-	useEffect( ()=> {
-		function callback2(data){
+	useEffect(  ()=> {
+		const fetchdata = async () =>{
+			const res =  await axios.get("http://localhost:3000/admin/me", {
+				headers : {
+					"Authorization": "Bearer "+ localStorage.getItem("token")
+				}
+			})
+			const data = res.data;
 			console.log(data);
-			if( data.username){
-				setUserEmail(data.username);
+			if( data.username ){
+				console.log(data.username)
+				setUserEmail(data.username)
 			}
 		}
-		function callback1(res){
-			res.json().then(callback2)
-		}
-		fetch("http://localhost:3000/admin/me", {
-			method : 'GET', 
-			headers : {
-				"Authorization": "Bearer "+ localStorage.getItem("token")
-			}
-		 }).then(callback1)
-		 
+		fetchdata();
 	}, []);
 
 
 	if( userEmail ){
+		console.log( "userEmail hai ");
 		return (
 			<div style={{  backgroundColor : "#131313", padding : 10 , display : "flex" , justifyContent : "space-between"}}>
 				<Typography fontFamily={'Georgia'} paddingTop={2}  paddingLeft={5} color={"#E2DFD2"} variant= {"h4"}> Training Programs </Typography>
@@ -65,7 +65,10 @@ function Appbar(){
 		)
 	}
 
+	console.log( "userEmail nahi hai ");
+
 	return (
+
 		<div style={{   backgroundColor : "#131313", padding : 10 , display : "flex" , justifyContent : "space-between"}}>
 			<Typography  fontFamily={"Georgia"}   paddingLeft={3} fontSize={50} variant= {"h6"} color={"white"}> Werk-Ground</Typography>
 			<div style={{ paddingTop: 15, display : "flex"}}>

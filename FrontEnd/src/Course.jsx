@@ -30,20 +30,17 @@ function Course(){
 			course = courses[i];
 		}
 	}
-
 	if(!course){
 		return <div>
-			Loading....
+			 <h1> Loading.... </h1>
 		</div>
 	}
-
 	return (
-		<div style={{display : "flex" , justifyContent : "center"}}>
+		<div style={{ backgroundColor: "grey",  height: "85vh",  display : "flex" , justifyContent : "space-around", alignItems : "center"}}>
 			<CourseCard course= {course}> </CourseCard>
 			<UpdateCard course= {course}  setCourses= {setCourses} courses= {courses}> </UpdateCard>
 		</div>
 	)
-	
 }
 
 function UpdateCard(props){
@@ -53,10 +50,10 @@ function UpdateCard(props){
 	const [ imageLink , setImageLink ] = useState(""); 
 	const course = props.course;
 
-	return (<div>
-			<div style={{ display : "flex", justifyContent : 'center'}}>
+	return (<div >
+			<div style={{ display : "flex",  justifyContent : "space-around", alignItems: "center"  }}>
 				<div style={{
-					paddingTop  : 130
+					paddingTop  : 0
 					}}> 
 					<Typography  variant={"h6"}>
 						UPDATE COURSE 
